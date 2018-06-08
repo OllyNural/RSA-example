@@ -1,0 +1,22 @@
+version: '3'
+services:
+  alice:
+    environment: 
+      serverURI: 'http://bob:3000'
+    build:
+      context: ./alice
+    volumes:
+      - ./alice/:/usr/app
+    ports:
+      - "3001:3001"
+    command: ["npm", "start"]
+  bob:
+    environment: 
+      serverURI: 'http://alice:3001'
+    build:
+      context: ./bob
+    volumes:
+      - ./bob/:/usr/app
+    ports:
+      - "3000:3000"
+    command: ["npm", "start"]
